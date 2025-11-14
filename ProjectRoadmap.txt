@@ -1,0 +1,71 @@
+RAG-Based Chatbot Roadmap for Learning Management Platform
+Phase 1: Foundation & Prototype 
+Objective: Build a basic chatbot using free LLMs with LMS content.
+
+Step 1: Data Preparation:
+Extract course materials, PDFs, videos, FAQs from LMS.
+Clean, organize, and structure extracted content.
+Chunk documents into 300–500 word pieces.
+ 
+Step 2: Build the RAG Pipeline:
+Set up vector DB: PostgreSQL with pgvector
+Use free embedding model: sentence-transformers (MiniLM-L6-v2).
+Choose free LLM: Ollama, HuggingFace models, or Gemini free tier.
+
+Step 3: Basic Chatbot Interface:
+Implement retrieval logic (query → search → retrieve → answer).
+Build a simple UI using Streamlit.
+Test text responses.
+
+Phase 2: Multi-Modal Responses 
+Add support for text, image, audio, and video-based answers.
+Image Responses:
+Detect visual queries and fetch related images.
+
+Audio Responses:
+Use free TTS engines (Google TTS, pyttsx3, Coqui TTS).
+Add the 'Listen' button for audio playback.
+
+Video Responses:
+Index videos with transcripts and timestamps.
+Provide timestamped links, summaries, and thumbnails.
+
+Phase 3: Database Integration & Context Management 
+Integrate chatbot deeply with LMS data.
+Database Integration:
+Fetch user progress, courses, past queries.
+
+Context Awareness:
+Maintain the last 5–10 messages for coherent conversations.
+
+Metadata Filtering:
+Tag content with difficulty, course, topic.
+Filter retrieval based on metadata.
+
+Phase 4: Testing & Refinement
+Test with real users and refine accuracy.
+Key Metrics:
+Answer accuracy
+Relevance
+Response time 
+BERT and Rouge score
+
+Phase 5: Transition to Production 
+Move from free to paid LLMs for better performance.
+Keep RAG architecture, only swap LLM.
+Authentication, rate limiting, analytics, logging.
+
+Technical Architecture (Overview)
+User Question
+    ↓
+[Preprocessing: Clean & extract key terms]
+    ↓
+[Vector Database Search: Find relevant content]
+    ↓
+[Context Builder: Combine question + retrieved content + user history]
+    ↓
+[LLM: Generate answer]
+    ↓
+[Response Formatter: Add images/audio/video if needed]
+    ↓
+[UI: Display to user]
