@@ -34,4 +34,38 @@ class YouTubeRecommender:
         Returns:
             List of video dictionaries with metadata
         """
+
+        params = {
+            'part': 'snippet',
+            'q': query,
+            'type': 'video',
+            'maxResults': max_results,
+            'key': self.api_key,
+            'order': 'relevance',
+            'videoDefinition': 'any',
+            'videoEmbeddable': 'true'
+        }
+        
+        try:
+            response = requests.get(self.base_url, params=params)
+            response.raise_for_status()
+            data = response.json()
+            
+            videos = []
+            for item in data.get('items', []):
+                video = {
+                    'video_id': item['id']['videoId'],
+                    'title': item['snippet']['title'],
+                    'description': item['snippet']['description'],
+                    'channel': item['snippet']['channelTitle'],
+                    'url': f"https://www.youtube.com/watch?v={item['id']['videoId']}",
+                    'thumbnail': item['snippet']['thumbnails']['high']['url']
+                }
+                videos.append(video)
+            
+            return videos
+        
+        except requests.exceptions.RequestException as e:
+            print(f"Error fetching videos: {e}")
+            return []
         
